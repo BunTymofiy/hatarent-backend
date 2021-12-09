@@ -7,5 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/property")
 @RestController
-public class PropertyController {
+public class PropertyController
+{
+
 }
