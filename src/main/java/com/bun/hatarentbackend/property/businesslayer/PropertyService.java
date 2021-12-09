@@ -8,15 +8,15 @@ import java.util.UUID;
 
 public interface PropertyService
 {
-    public List<PropertyEntity> getAllProperties();
-    public PropertyEntity getPropertyByPropertyId(UUID propertyId);
-    public PropertyEntity updateProperty(PropertyEntity propertyEntity, PropertyEntity UpdatePropertyEntity);
-    public PropertyEntity createProperty(PropertyEntity propertyEntity);
-    public void deletePropertyByPropertyId(UUID propertyId);
+    List<PropertyEntity> getAllProperties();
+    PropertyEntity getPropertyByPropertyId(Integer propertyId);
+    PropertyEntity updateProperty(PropertyEntity propertyEntity, PropertyEntity UpdatePropertyEntity);
+    PropertyEntity createProperty(PropertyEntity propertyEntity);
+    void deletePropertyByPropertyId(Integer propertyId);
 
-    public List<PropertyDTO> getAllPropertiesDTO();
-    public PropertyDTO getPropertyDTOByPropertyId(UUID propertyId);
-    public PropertyDTO updatePropertyDTO(UUID propertyId, PropertyEntity UpdatePropertyEntity);
-    public PropertyDTO createPropertyDTO(PropertyEntity propertyEntity);
-    public void deletePropertyDTOByPropertyId(UUID propertyId);
+//    List<PropertyDTO> getAllPropertiesDTO();
+//    PropertyDTO getPropertyDTOByPropertyId(UUID propertyId);
+//    PropertyDTO updatePropertyDTO(UUID propertyId, PropertyDTO UpdatePropertyDTO);
+//    PropertyDTO createPropertyDTO(PropertyDTO propertyDTO);
+//    void deletePropertyDTOByPropertyId(UUID propertyId);
 }

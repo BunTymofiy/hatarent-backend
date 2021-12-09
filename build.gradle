@@ -2,6 +2,8 @@ plugins {
 	id 'org.springframework.boot' version '2.6.1'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id "io.freefair.lombok" version "6.0.0-m2"
+	id 'jacoco'
 }
 
 group = 'com.bun'
@@ -18,7 +20,6 @@ ext {
 dependencies {
 
 	implementation 'org.springframework:spring-web:5.3.13'
-	implementation project(':api')
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.projectlombok:lombok:1.18.22'
@@ -36,6 +37,35 @@ dependencies {
 	testImplementation 'io.projectreactor:reactor-test'
 	testImplementation('com.h2database:h2')
 }
+
+jacoco {
+	toolVersion = "0.8.6"
+}
+
+jacocoTestReport {
+	dependsOn test
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					"com/petclinic/**/AuthServiceApplication.class",
+			])
+		}))
+	}
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0
+			}
+		}
+	}
+}
+
+test.finalizedBy jacocoTestReport
+check.dependsOn jacocoTestCoverageVerification
 
 test {
 	useJUnitPlatform()

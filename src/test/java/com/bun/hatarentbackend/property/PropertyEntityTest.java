@@ -17,17 +17,16 @@ public class PropertyEntityTest
     @DisplayName("Property AllArgsConstructor Test")
     void allArgsConstructorTest()
     {
-        UUID propertyUuid = UUID.randomUUID();
-        UUID host_userUuid = UUID.randomUUID();
-        UUID address_idUuid = UUID.randomUUID();
-        PropertyEntity property = new PropertyEntity(1,propertyUuid,host_userUuid,address_idUuid,3,"SomeDescription");
+
+        PropertyEntity property = new PropertyEntity(1,1,1,1,3,"SomeDescription", "Title");
 
         assertEquals(1,property.getId());
-        assertEquals(propertyUuid,property.getPropertyId());
-        assertEquals(host_userUuid,property.getHostUserId());
-        assertEquals(address_idUuid,property.getAddressId());
+        assertEquals(1,property.getPropertyId());
+        assertEquals(1,property.getHostUserId());
+        assertEquals(1,property.getAddressId());
         assertEquals(3,property.getGuestLimit());
         assertEquals("SomeDescription",property.getDescription());
+        assertEquals("Title",property.getTitle());
     }
 
     @Test
@@ -47,21 +46,19 @@ public class PropertyEntityTest
     @DisplayName("Property Setter Test")
     void setterTest()
     {
-        UUID propertyUuid = UUID.randomUUID();
-        UUID host_userUuid = UUID.randomUUID();
-        UUID address_idUuid = UUID.randomUUID();
+
         PropertyEntity property = new PropertyEntity();
         property.setId(1);
-        property.setPropertyId(propertyUuid);
-        property.setAddressId(address_idUuid);
-        property.setHostUserId(host_userUuid);
+        property.setPropertyId(1);
+        property.setAddressId(1);
+        property.setHostUserId(1);
         property.setGuestLimit(3);
         property.setDescription("SomeDescription");
 
         assertEquals(1,property.getId());
-        assertEquals(propertyUuid,property.getPropertyId());
-        assertEquals(host_userUuid,property.getHostUserId());
-        assertEquals(address_idUuid,property.getAddressId());
+        assertEquals(1,property.getPropertyId());
+        assertEquals(1,property.getHostUserId());
+        assertEquals(1,property.getAddressId());
         assertEquals(3,property.getGuestLimit());
         assertEquals("SomeDescription",property.getDescription());
     }
