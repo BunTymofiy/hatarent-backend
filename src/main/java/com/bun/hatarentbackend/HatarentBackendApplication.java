@@ -23,7 +23,7 @@ public class HatarentBackendApplication {
 		return new WebMvcConfigurerAdapter() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/products").allowedOrigins("http://localhost:8080");
+				registry.addMapping("/**").allowedOrigins("*");
 			}
 		};
 	}
