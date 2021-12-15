@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface PropertyMapper
 {
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "uuid", ignore = true)
     PropertyEntity propertyDTOToPropertyEntity(PropertyDTO propertyDTO);
     PropertyDTO propertyEntityToPropertyDTO(PropertyEntity propertyEntity);
 

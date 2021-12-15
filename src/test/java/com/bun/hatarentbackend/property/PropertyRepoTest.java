@@ -7,48 +7,63 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.PropertyAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
+
+import javax.persistence.EntityManager;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.UUID;
 
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("test")
 public class PropertyRepoTest
 {
 
+    UUID uuidHostId = UUID.randomUUID();
+    UUID uuidAddressId = UUID.randomUUID();
 
     @Autowired
     private PropertyRepository propertyRepository;
+
+    @Autowired
+    private EntityManager entityManager;
+
     @BeforeEach
     public void setUpDB()
     {
-
-        PropertyEntity property1 = new PropertyEntity(1,1,1,1,3,"SomeDescription", "Title");
-        PropertyEntity property2 = new PropertyEntity(2,2,2,2,2,"SomeDescription", "Title");
-        PropertyEntity property3 = new PropertyEntity(3,3,3,3,6,"SomeDescription", "Title");
-        propertyRepository.save(property1);
-        propertyRepository.save(property2);
-        propertyRepository.save(property3);
+        propertyRepository.deleteAll();
     }
 
     @Test
     public void savePropertyTest()
     {
-        PropertyEntity property1 = new PropertyEntity(1,5,2,3,3,"SomeDescription", "Title");
+
+        UUID uuid = UUID.randomUUID();
+        PropertyEntity property1 = new PropertyEntity(uuid, uuidHostId, uuidAddressId, 10, "SomeDescription", "Title","Name","Email");
+
         propertyRepository.save(property1);
         assertThat(propertyRepository.count()).isGreaterThan(0);
     }
     @Test
     public void getPropertyByPropertyIdTest()
     {
-        PropertyEntity property = propertyRepository.findByPropertyId(1).get();
-        assertEquals(property.getPropertyId(), 1);
+        PropertyEntity property1 = new PropertyEntity(null, uuidHostId, uuidAddressId, 10, "SomeDescription", "Title","Name","Email");
+        PropertyEntity save = propertyRepository.save(property1);
+        entityManager.flush();
+        PropertyEntity property = propertyRepository.findById(save.getUuid()).get();
+        assertEquals(property.getUuid(), save.getUuid());
     }
     @Test
     public void deletePropertyByIdTest()
     {
-        PropertyEntity property1 = new PropertyEntity(1,1,1,1,3,"SomeDescription", "Title");
+        UUID uuid = UUID.randomUUID();
+
+        PropertyEntity property1 = new PropertyEntity(uuid, uuidHostId, uuidAddressId, 10, "SomeDescription", "Title","Name","Email");
         propertyRepository.delete(property1);
     }
 
