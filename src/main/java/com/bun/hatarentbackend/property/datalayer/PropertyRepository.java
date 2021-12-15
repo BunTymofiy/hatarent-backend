@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface PropertyRepository extends JpaRepository<PropertyEntity, Integer>
+public interface PropertyRepository extends JpaRepository<PropertyEntity, UUID>
 {
-    Optional<PropertyEntity> findByPropertyId(int propertyId);
+    Integer deleteByUuid(UUID id);
 }

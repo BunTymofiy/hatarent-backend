@@ -13,20 +13,24 @@ import java.util.UUID;
 @ActiveProfiles("test")
 public class PropertyEntityTest
 {
+    UUID uuid = UUID.randomUUID();
+    UUID uuidHostId = UUID.randomUUID();
+    UUID uuidAddressId = UUID.randomUUID();
     @Test
     @DisplayName("Property AllArgsConstructor Test")
     void allArgsConstructorTest()
     {
 
-        PropertyEntity property = new PropertyEntity(1,1,1,1,3,"SomeDescription", "Title");
+        PropertyEntity property = new PropertyEntity(uuid, uuidHostId, uuidAddressId, 10, "SomeDescription", "Title","Name","Email");
 
-        assertEquals(1,property.getId());
-        assertEquals(1,property.getPropertyId());
-        assertEquals(1,property.getHostUserId());
-        assertEquals(1,property.getAddressId());
-        assertEquals(3,property.getGuestLimit());
+        assertEquals(uuid,property.getUuid());
+        assertEquals(uuidHostId,property.getHostUserId());
+        assertEquals(uuidAddressId,property.getAddressUuid());
+        assertEquals(10,property.getGuestLimit());
         assertEquals("SomeDescription",property.getDescription());
         assertEquals("Title",property.getTitle());
+        assertEquals("Name",property.getContact_person());
+        assertEquals("Email",property.getEmail());
     }
 
     @Test
@@ -34,10 +38,8 @@ public class PropertyEntityTest
     void noArgsConstructorTest()
     {
         PropertyEntity property = new PropertyEntity();
-        assertNull(property.getId());
-        assertNull(property.getPropertyId());
         assertNull(property.getHostUserId());
-        assertNull(property.getAddressId());
+        assertNull(property.getAddressUuid());
         assertNull(property.getGuestLimit());
         assertNull(property.getDescription());
     }
@@ -48,18 +50,23 @@ public class PropertyEntityTest
     {
 
         PropertyEntity property = new PropertyEntity();
-        property.setId(1);
-        property.setPropertyId(1);
-        property.setAddressId(1);
-        property.setHostUserId(1);
-        property.setGuestLimit(3);
-        property.setDescription("SomeDescription");
 
-        assertEquals(1,property.getId());
-        assertEquals(1,property.getPropertyId());
-        assertEquals(1,property.getHostUserId());
-        assertEquals(1,property.getAddressId());
-        assertEquals(3,property.getGuestLimit());
+        property.setUuid(uuid);
+        property.setAddressUuid(uuidAddressId);
+        property.setHostUserId(uuidHostId);
+        property.setGuestLimit(10);
+        property.setDescription("SomeDescription");
+        property.setTitle("Title");
+        property.setContact_person("Name");
+        property.setEmail("Email");
+
+        assertEquals(uuid,property.getUuid());
+        assertEquals(uuidHostId,property.getHostUserId());
+        assertEquals(uuidAddressId,property.getAddressUuid());
+        assertEquals(10,property.getGuestLimit());
         assertEquals("SomeDescription",property.getDescription());
+        assertEquals("Title",property.getTitle());
+        assertEquals("Name",property.getContact_person());
+        assertEquals("Email",property.getEmail());
     }
 }
