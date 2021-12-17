@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface PropertyService
 {
     List<PropertyEntity> findAll();
-    Optional<PropertyEntity> findByUUI(UUID propertyId);
+    Optional<PropertyEntity> findByUuid(UUID propertyId);
     PropertyEntity update(PropertyEntity propertyEntity);
     PropertyEntity create(PropertyEntity propertyEntity);
     void delete(UUID propertyId);

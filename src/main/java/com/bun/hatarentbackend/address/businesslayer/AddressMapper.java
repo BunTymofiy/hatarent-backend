@@ -8,8 +8,9 @@ import org.mapstruct.Mapping;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface AddressMapper {
-    @Mapping(target = "id", ignore = true)
+public interface AddressMapper
+{
+    @Mapping(target = "uuid", ignore = true)
     AddressEntity addressDTOToAddressEntity(AddressDTO addressDTO);
     AddressDTO addressEntityToAddressDTO(AddressEntity addressEntity);
 
