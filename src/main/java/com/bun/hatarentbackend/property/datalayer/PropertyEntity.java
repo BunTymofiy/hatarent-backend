@@ -23,7 +23,7 @@ public class PropertyEntity
     private UUID uuid = UUID.randomUUID();
 
     @Column(name = "host_user_uuid")
-    private UUID hostUserId;
+    private UUID hostUserUuid;
 
     @Column(name = "address_uuid")
     private UUID addressUuid;

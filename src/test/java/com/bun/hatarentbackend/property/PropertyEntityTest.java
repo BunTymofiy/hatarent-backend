@@ -24,7 +24,7 @@ public class PropertyEntityTest
         PropertyEntity property = new PropertyEntity(uuid, uuidHostId, uuidAddressId, 10, "SomeDescription", "Title","Name","Email");
 
         assertEquals(uuid,property.getUuid());
-        assertEquals(uuidHostId,property.getHostUserId());
+        assertEquals(uuidHostId,property.getHostUserUuid());
         assertEquals(uuidAddressId,property.getAddressUuid());
         assertEquals(10,property.getGuestLimit());
         assertEquals("SomeDescription",property.getDescription());
@@ -38,7 +38,7 @@ public class PropertyEntityTest
     void noArgsConstructorTest()
     {
         PropertyEntity property = new PropertyEntity();
-        assertNull(property.getHostUserId());
+        assertNull(property.getHostUserUuid());
         assertNull(property.getAddressUuid());
         assertNull(property.getGuestLimit());
         assertNull(property.getDescription());
@@ -53,7 +53,7 @@ public class PropertyEntityTest
 
         property.setUuid(uuid);
         property.setAddressUuid(uuidAddressId);
-        property.setHostUserId(uuidHostId);
+        property.setHostUserUuid(uuidHostId);
         property.setGuestLimit(10);
         property.setDescription("SomeDescription");
         property.setTitle("Title");
@@ -61,7 +61,7 @@ public class PropertyEntityTest
         property.setEmail("Email");
 
         assertEquals(uuid,property.getUuid());
-        assertEquals(uuidHostId,property.getHostUserId());
+        assertEquals(uuidHostId,property.getHostUserUuid());
         assertEquals(uuidAddressId,property.getAddressUuid());
         assertEquals(10,property.getGuestLimit());
         assertEquals("SomeDescription",property.getDescription());

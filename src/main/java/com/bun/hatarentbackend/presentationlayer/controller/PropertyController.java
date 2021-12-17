@@ -21,6 +21,7 @@ import java.util.UUID;
 @RequestMapping()
 @Slf4j
 @RestController
+@CrossOrigin("*")
 public class PropertyController
 {
     private final PropertyService propertyService;

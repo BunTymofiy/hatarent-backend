@@ -7,6 +7,7 @@ import com.bun.hatarentbackend.utils.exceptions.NotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,6 +57,7 @@ public class PropertyServiceImpl implements PropertyService{
     }
 
     @Override
+    @Transactional
     public void delete(UUID uuid) {
         log.info("deleting property");
         final Integer deleted = propertyRepository.deleteByUuid(uuid);
