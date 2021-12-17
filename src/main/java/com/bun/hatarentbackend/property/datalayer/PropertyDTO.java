@@ -10,7 +10,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PropertyDTO
 {
-    private  UUID hostUserId;
+    private  UUID hostUserUuid;
 
     private  UUID addressUuid;
 
