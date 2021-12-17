@@ -32,7 +32,7 @@ public class PropertyServiceImpl implements PropertyService{
     }
 
     @Override
-    public Optional<PropertyEntity> findByUUI(UUID uuid) {
+    public Optional<PropertyEntity> findByUuid(UUID uuid) {
         log.info("Getting property");
         Optional<PropertyEntity> propertyEntity = propertyRepository.findById(uuid);
         log.info("Found property");
