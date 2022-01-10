@@ -1,5 +1,6 @@
 package com.bun.hatarentbackend.property;
 
+import com.bun.hatarentbackend.address.datalayer.AddressEntity;
 import com.bun.hatarentbackend.property.datalayer.PropertyEntity;
 import com.bun.hatarentbackend.property.datalayer.PropertyRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +18,7 @@ import javax.transaction.Transactional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
 import java.util.UUID;
 
 @DataJpaTest
@@ -43,9 +45,9 @@ public class PropertyRepoTest
     @Test
     public void savePropertyTest()
     {
-
+        AddressEntity addressEntity = new AddressEntity(uuidAddressId, "Street", "apartment","City", "State", "Zip", "Country", "Latitude", "Longitude");
         UUID uuid = UUID.randomUUID();
-        PropertyEntity property1 = new PropertyEntity(uuid, uuidHostId, uuidAddressId, 10, "SomeDescription", "Title","Name","Email");
+        PropertyEntity property1 = new PropertyEntity(uuid, uuidHostId, addressEntity, 10, "SomeDescription", "Title","Name","Email",List.of("",""));
 
         propertyRepository.save(property1);
         assertThat(propertyRepository.count()).isGreaterThan(0);
@@ -53,7 +55,9 @@ public class PropertyRepoTest
     @Test
     public void getPropertyByPropertyIdTest()
     {
-        PropertyEntity property1 = new PropertyEntity(null, uuidHostId, uuidAddressId, 10, "SomeDescription", "Title","Name","Email");
+        AddressEntity addressEntity = new AddressEntity(uuidAddressId, "Street", "apartment","City", "State", "Zip", "Country", "Latitude", "Longitude");
+
+        PropertyEntity property1 = new PropertyEntity(null, uuidHostId, addressEntity, 10, "SomeDescription", "Title","Name","Email",List.of("",""));
         PropertyEntity save = propertyRepository.save(property1);
         entityManager.flush();
         PropertyEntity property = propertyRepository.findById(save.getUuid()).get();
@@ -62,9 +66,11 @@ public class PropertyRepoTest
     @Test
     public void deletePropertyByIdTest()
     {
+        AddressEntity addressEntity = new AddressEntity(uuidAddressId, "Street", "apartment","City", "State", "Zip", "Country", "Latitude", "Longitude");
+
         UUID uuid = UUID.randomUUID();
 
-        PropertyEntity property1 = new PropertyEntity(uuid, uuidHostId, uuidAddressId, 10, "SomeDescription", "Title","Name","Email");
+        PropertyEntity property1 = new PropertyEntity(uuid, uuidHostId, addressEntity, 10, "SomeDescription", "Title","Name","Email",List.of("",""));
         propertyRepository.delete(property1);
     }
 

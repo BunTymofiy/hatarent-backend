@@ -1,5 +1,7 @@
 package com.bun.hatarentbackend.property.datalayer;
 
+import com.bun.hatarentbackend.address.datalayer.AddressEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,8 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -15,6 +19,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PropertyEntity
 {
     @GeneratedValue(generator = "UUIDGenerator")
@@ -25,8 +30,10 @@ public class PropertyEntity
     @Column(name = "host_user_uuid")
     private UUID hostUserUuid;
 
-    @Column(name = "address_uuid")
-    private UUID addressUuid;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @NotNull(message = "Address is required")
+    @JoinColumn(name = "address_uuid")
+    private AddressEntity address;
 
     @Column(name = "guest_limit")
     private Integer guestLimit;
@@ -42,5 +49,9 @@ public class PropertyEntity
 
     @Column(name = "email")
     private String email;
+
+    @ElementCollection
+    @Column(name = "images")
+    private List<String> images;
 
 }

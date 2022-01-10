@@ -1,9 +1,11 @@
 package com.bun.hatarentbackend.property.datalayer;
 
+import com.bun.hatarentbackend.address.datalayer.AddressEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 @Data
 @AllArgsConstructor
@@ -12,7 +14,7 @@ public class PropertyDTO
 {
     private  UUID hostUserUuid;
 
-    private  UUID addressUuid;
+    private AddressEntity address;
 
     private Integer guestLimit;
 
@@ -23,4 +25,6 @@ public class PropertyDTO
     private String contact_person;
 
     private String email;
+
+    private List<String> images;
 }
