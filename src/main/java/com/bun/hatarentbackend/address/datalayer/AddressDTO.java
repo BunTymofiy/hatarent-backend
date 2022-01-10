@@ -12,8 +12,12 @@ public class AddressDTO {
     private String street;
     private String apartment;
     private String city;
+    private String province;
     private String country;
     private String zip;
+    private String latitude;
+    private String longitude;
+
 
 
 }

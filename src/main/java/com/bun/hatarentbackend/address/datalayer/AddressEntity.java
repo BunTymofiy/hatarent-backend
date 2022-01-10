@@ -1,5 +1,6 @@
 package com.bun.hatarentbackend.address.datalayer;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class AddressEntity {
     @GeneratedValue(generator = "UUIDGenerator")
     @GenericGenerator(name = "UUIDGenerator", strategy = "uuid2")
@@ -30,11 +32,18 @@ public class AddressEntity {
     @Column(name = "city")
     private String city;
 
+    @Column(name = "province")
+    private String province;
+
     @Column(name = "country")
     private String country;
 
     @Column(name = "zip")
     private String zip;
 
+    @Column(name = "latitude")
+    private String latitude;
 
+    @Column(name = "longitude")
+    private String longitude;
 }
