@@ -1,6 +1,5 @@
 package com.bun.hatarentbackend.property.datalayer;
 
-import com.bun.hatarentbackend.address.datalayer.AddressEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,7 @@ public class PropertyDTO
 {
     private  UUID hostUserUuid;
 
-    private AddressEntity address;
+    private Address address;
 
     private Integer guestLimit;
 
