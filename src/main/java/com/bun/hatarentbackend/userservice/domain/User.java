@@ -21,6 +21,8 @@ public class User {
     @Id
     private UUID uuid = UUID.randomUUID();
     private String name;
+
+    @Column(unique = true)
     private String email;
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
