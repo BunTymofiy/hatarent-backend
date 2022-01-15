@@ -1,5 +1,8 @@
 package com.bun.hatarentbackend;
 
+import com.bun.hatarentbackend.userservice.domain.Role;
+import com.bun.hatarentbackend.userservice.service.UserService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -18,5 +21,11 @@ public class HatarentBackendApplication {
 		SpringApplication.run(HatarentBackendApplication.class, args);
 	}
 
-
+	@Bean
+	CommandLineRunner run(UserService userService) {
+		return args -> {
+			userService.saveRole(new Role(null, "ROLE_GUEST"));
+			userService.saveRole(new Role(null, "ROLE_HOST"));
+		};
+	}
 }
