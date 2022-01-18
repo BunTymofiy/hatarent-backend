@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.User;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -51,22 +52,23 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 15 * 60 * 1000))
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);
-        String refresh_token = JWT.create()
-                .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
-                .withIssuer(request.getRequestURL().toString())
-                .sign(algorithm);
 
-        response.setHeader("access_token", access_token);
-        response.setHeader("refresh_token", refresh_token);
+
+
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", access_token);
-        tokens.put("refresh_token", refresh_token);
         response.setContentType(APPLICATION_JSON_VALUE);
+        Cookie cookie = new Cookie("token", access_token);
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(10 * 60 * 1000);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+
+        response.addCookie(cookie);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
 }

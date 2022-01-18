@@ -12,6 +12,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,13 +35,23 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "http://localhost:3000")
-
 public class UserController {
     private final UserService userService;
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok().body(userService.getUsers());
+    }
+
+    @RequestMapping(method = RequestMethod.HEAD , value = "/logout")
+    public ResponseEntity<Void> logout()   {
+        return ResponseEntity.noContent()
+                .header(HttpHeaders.SET_COOKIE, ResponseCookie.from("token", "")
+                        .httpOnly(true)
+                        .secure(true)
+                        .maxAge(0)
+                        .path("/")
+                        .build().toString())
+                .build();
     }
 
     @PostMapping("/users/save")
