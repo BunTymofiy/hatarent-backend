@@ -21,7 +21,7 @@ import java.util.UUID;
 @RequestMapping()
 @Slf4j
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PropertyController
 {
     private final PropertyService propertyService;

@@ -33,6 +33,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "http://localhost:3000")
+
 public class UserController {
     private final UserService userService;
     @GetMapping("/users")
@@ -42,13 +44,13 @@ public class UserController {
 
     @PostMapping("/users/save")
     public ResponseEntity<User> saveUser(@RequestBody User user) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/users/save").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/users/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
 
     @PostMapping("role/save")
     public ResponseEntity<Role> saveRole(@RequestBody Role role) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/role/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveRole(role));
     }
 
@@ -61,16 +63,16 @@ public class UserController {
 
     @PostMapping("user/register/host")
     public ResponseEntity<User> registerHost(@RequestBody User user) throws Exception {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/register/host").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/register/host").toUriString());
         User newUser = userService.register(user);
-        userService.addRoleToUser(newUser.getUsername(), "ROLE_HOST");
+        userService.addRoleToUser(newUser.getEmail(), "ROLE_HOST");
         return ResponseEntity.created(uri).body(newUser);
     }
     @PostMapping("user/register/guest")
     public ResponseEntity<User> registerGuest(@RequestBody User user) throws Exception {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/register/guest").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/register/guest").toUriString());
         User newUser = userService.register(user);
-        userService.addRoleToUser(newUser.getUsername(), "ROLE_GUEST");
+        userService.addRoleToUser(newUser.getEmail(), "ROLE_GUEST");
         return ResponseEntity.created(uri).body(newUser);
     }
 
