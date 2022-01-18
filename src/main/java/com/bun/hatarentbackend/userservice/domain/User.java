@@ -1,6 +1,8 @@
 package com.bun.hatarentbackend.userservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -15,6 +17,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder(toBuilder = true)
 @Table(name = "users")
 public class User {
 
@@ -25,12 +28,11 @@ public class User {
     private String firstName;
     private String lastName;
     private String username;
-
     @Column(unique = true)
     @NotNull(message = "Email cannot be null")
     private String email;
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = { CascadeType.MERGE})
     private Collection<Role> roles = new ArrayList<>();
     private String image;
     private String phoneNumber;

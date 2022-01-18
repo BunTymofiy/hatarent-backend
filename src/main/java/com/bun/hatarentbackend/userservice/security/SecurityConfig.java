@@ -22,8 +22,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -46,9 +45,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().configurationSource(corsConfigurationSource());
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
+//        http.authorizeRequests().antMatchers(DELETE, "/property/**").permitAll();
+//        http.authorizeRequests().antMatchers(POST, "/property/**").hasAnyAuthority("ROLE_HOST");
         http.authorizeRequests().antMatchers("/login/**", "/token/refresh/**", "/user/register/**", "/property/**", "/logout").permitAll();
         http.authorizeRequests().antMatchers(GET, "/property").permitAll();
-        http.authorizeRequests().antMatchers(POST, "/property/**").hasAnyAuthority("ROLE_HOST");
 
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
