@@ -1,7 +1,7 @@
 package com.bun.hatarentbackend.property;
 
-import com.bun.hatarentbackend.address.datalayer.AddressEntity;
-import com.bun.hatarentbackend.property.datalayer.PropertyEntity;
+import com.bun.hatarentbackend.property.datalayer.Address;
+import com.bun.hatarentbackend.property.datalayer.Property;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-public class PropertyEntityTest
+public class PropertyTest
 {
     UUID uuid = UUID.randomUUID();
     UUID uuidHostId = UUID.randomUUID();
@@ -22,8 +22,8 @@ public class PropertyEntityTest
     @DisplayName("Property AllArgsConstructor Test")
     void allArgsConstructorTest()
     {
-        AddressEntity address = new AddressEntity();
-        PropertyEntity property = new PropertyEntity(uuid, uuidHostId,address, 10, "SomeDescription", "Title","Name","Email", List.of("","") );
+        Address address = new Address();
+        Property property = new Property(uuid, uuidHostId,address, 10, "SomeDescription", "Title","Name","Email", List.of("","") );
 
         assertEquals(uuid,property.getUuid());
         assertEquals(uuidHostId,property.getHostUserUuid());
@@ -38,7 +38,7 @@ public class PropertyEntityTest
     @DisplayName("Property No ArgsConstructor Test")
     void noArgsConstructorTest()
     {
-        PropertyEntity property = new PropertyEntity();
+        Property property = new Property();
         assertNull(property.getHostUserUuid());
         assertNull(property.getGuestLimit());
         assertNull(property.getDescription());
@@ -49,7 +49,7 @@ public class PropertyEntityTest
     void setterTest()
     {
 
-        PropertyEntity property = new PropertyEntity();
+        Property property = new Property();
 
         property.setUuid(uuid);
         property.setHostUserUuid(uuidHostId);

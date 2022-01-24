@@ -1,7 +1,7 @@
 package com.bun.hatarentbackend.property.businesslayer;
 
+import com.bun.hatarentbackend.property.datalayer.Property;
 import com.bun.hatarentbackend.property.datalayer.PropertyDTO;
-import com.bun.hatarentbackend.property.datalayer.PropertyEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -11,9 +11,9 @@ import java.util.List;
 public interface PropertyMapper
 {
     @Mapping(target = "uuid", ignore = true)
-    PropertyEntity propertyDTOToPropertyEntity(PropertyDTO propertyDTO);
-    PropertyDTO propertyEntityToPropertyDTO(PropertyEntity propertyEntity);
+    Property propertyDTOToPropertyEntity(PropertyDTO propertyDTO);
+    PropertyDTO propertyEntityToPropertyDTO(Property property);
 
-    List<PropertyEntity> propertyDTOListToPropertyEntityList(List<PropertyDTO> propertyDTOList);
-    List<PropertyDTO> propertyEntityListToPropertyDTOList(List<PropertyEntity> propertyEntityList);
+    List<Property> propertyDTOListToPropertyEntityList(List<PropertyDTO> propertyDTOList);
+    List<PropertyDTO> propertyEntityListToPropertyDTOList(List<Property> propertyList);
 }

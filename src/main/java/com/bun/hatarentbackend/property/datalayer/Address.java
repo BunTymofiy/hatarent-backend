@@ -1,4 +1,4 @@
-package com.bun.hatarentbackend.address.datalayer;
+package com.bun.hatarentbackend.property.datalayer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class AddressEntity {
+public class Address {
     @GeneratedValue(generator = "UUIDGenerator")
     @GenericGenerator(name = "UUIDGenerator", strategy = "uuid2")
     @Id

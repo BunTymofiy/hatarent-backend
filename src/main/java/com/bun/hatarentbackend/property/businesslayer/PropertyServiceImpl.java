@@ -1,9 +1,7 @@
 package com.bun.hatarentbackend.property.businesslayer;
 
-import com.bun.hatarentbackend.property.datalayer.PropertyDTO;
-import com.bun.hatarentbackend.property.datalayer.PropertyEntity;
+import com.bun.hatarentbackend.property.datalayer.Property;
 import com.bun.hatarentbackend.property.datalayer.PropertyRepository;
-import com.bun.hatarentbackend.utils.exceptions.NotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,32 +24,32 @@ public class PropertyServiceImpl implements PropertyService{
 
 
     @Override
-    public List<PropertyEntity> findAll() {
+    public List<Property> findAll() {
         log.info("Getting all the data");
         return propertyRepository.findAll();
     }
 
     @Override
-    public Optional<PropertyEntity> findByUuid(UUID uuid) {
+    public Optional<Property> findByUuid(UUID uuid) {
         log.info("Getting property");
-        Optional<PropertyEntity> propertyEntity = propertyRepository.findById(uuid);
+        Optional<Property> propertyEntity = propertyRepository.findById(uuid);
         log.info("Found property");
         return propertyEntity;
     }
 
 
     @Override
-    public PropertyEntity update(PropertyEntity propertyEntity) {
+    public Property update(Property propertyEntity) {
         log.info("Updating property");
-        PropertyEntity property = propertyRepository.save(propertyEntity);
+        Property property = propertyRepository.save(propertyEntity);
         log.info("Updated property");
         return property;
     }
 
     @Override
-    public PropertyEntity create(PropertyEntity propertyEntity) {
+    public Property create(Property propertyEntity) {
         log.info("Creating property");
-        PropertyEntity property = propertyRepository.save(propertyEntity);
+        Property property = propertyRepository.save(propertyEntity);
         log.info("Created property");
         return property;
     }
