@@ -10,7 +10,7 @@ public interface UserService {
     User saveUser(User user);
     Role saveRole(Role role);
     void addRoleToUser(String username, String roleName);
-    User getUser(String username);
+    User getUser(String email);
     List<User> getUsers();
     boolean checkIfUserExist(String email);
     User register (User user) throws Exception;

@@ -33,11 +33,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (request.getServletPath().equals("/login") || request.getServletPath().equals("/token/refresh")) {  //if the request is for login
+        if (request.getServletPath().equals("/login")) {  //if the request is for login
             filterChain.doFilter(request, response);
         } else {
-            String authorizationHeader = request.getHeader(AUTHORIZATION);
-            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+//            String authorizationHeader = request.getHeader(AUTHORIZATION);
+//            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
                 try {
                     Cookie token = WebUtils.getCookie(request, "token");
                     if (token == null || !StringUtils.hasText(token.getValue())) {
@@ -68,9 +68,9 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     response.setContentType(APPLICATION_JSON_VALUE);
                     new ObjectMapper().writeValue(response.getOutputStream(), error);
                 }
-            } else {
-                filterChain.doFilter(request, response);
-            }
+//            } else {
+//                filterChain.doFilter(request, response);
+//            }
         }
     }
 }
