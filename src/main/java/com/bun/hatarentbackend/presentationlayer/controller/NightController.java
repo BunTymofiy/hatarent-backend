@@ -3,12 +3,15 @@ package com.bun.hatarentbackend.presentationlayer.controller;
 import com.bun.hatarentbackend.night.businesslayer.NightMapper;
 import com.bun.hatarentbackend.night.businesslayer.NightService;
 import com.bun.hatarentbackend.night.datalayer.Night;
+import com.bun.hatarentbackend.night.datalayer.NightDTO;
+import com.bun.hatarentbackend.property.datalayer.Property;
+import com.bun.hatarentbackend.property.datalayer.PropertyDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping()
@@ -29,5 +32,17 @@ public class NightController {
         List<Night> nightList = nightService.findAllNights();
         log.info("Found nights");
         return nightList;
+    }
+
+    @PostMapping( value = "/nights",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseStatus(HttpStatus.CREATED)
+    public Night addNight(@RequestBody @Valid NightDTO nightDTO){
+        Night nightMapped = nightMapper.nightDTOToNightEntity(nightDTO);
+        Night nightCreated = nightService.createNight(nightMapped);
+        log.info("Night created");
+        return nightCreated;
     }
 }

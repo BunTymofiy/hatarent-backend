@@ -25,7 +25,7 @@ public class Night {
     @Id
     private UUID nightId = UUID.randomUUID();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @NotNull(message = "Property is required")
     @JoinColumn(name = "uuid")
     private Property propertyId; // The whole property obj
