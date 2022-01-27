@@ -7,8 +7,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.bun.hatarentbackend.userservice.domain.Role;
 import com.bun.hatarentbackend.userservice.domain.User;
+import com.bun.hatarentbackend.userservice.domain.UserMapper;
+import com.bun.hatarentbackend.userservice.domain.UserPasswordLessDTO;
 import com.bun.hatarentbackend.userservice.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,16 +42,22 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
+
     private final UserService userService;
+    private final UserMapper userMapper;
+
+
+
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
     @GetMapping("/user")
-    public ResponseEntity<User> getUser(@AuthenticationPrincipal User user) {
+    public ResponseEntity<UserPasswordLessDTO> getUser(@AuthenticationPrincipal User user) {
         User foundUser = userService.getUser(user.getEmail());
-        return ResponseEntity.ok().body(foundUser);
+        UserPasswordLessDTO userPasswordLessDTO = userMapper.toPasswordLessDTO(foundUser);
+        return ResponseEntity.ok().body(userPasswordLessDTO);
     }
 
     @RequestMapping(method = RequestMethod.HEAD , value = "/logout")
