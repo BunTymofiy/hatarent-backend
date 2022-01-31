@@ -1,10 +1,7 @@
 package com.bun.hatarentbackend.property.datalayer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -13,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Builder(toBuilder = true)
 @Table(name = "property")
 @Setter
 @Getter
