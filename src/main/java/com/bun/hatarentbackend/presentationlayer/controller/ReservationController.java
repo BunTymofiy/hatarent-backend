@@ -1,0 +1,87 @@
+package com.bun.hatarentbackend.presentationlayer.controller;
+
+import com.bun.hatarentbackend.property.datalayer.Property;
+import com.bun.hatarentbackend.property.datalayer.PropertyDTO;
+import com.bun.hatarentbackend.reservation.businesslayer.ReservationMapper;
+import com.bun.hatarentbackend.reservation.businesslayer.ReservationService;
+import com.bun.hatarentbackend.reservation.datalayer.Reservation;
+import com.bun.hatarentbackend.reservation.datalayer.ReservationDTO;
+import com.bun.hatarentbackend.utils.exceptions.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+@RequestMapping()
+@Slf4j
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
+public class ReservationController {
+    private final ReservationService reservationService;
+    private final ReservationMapper reservationMapper;
+
+
+    public ReservationController(ReservationService reservationService, ReservationMapper reservationMapper) {
+        this.reservationService = reservationService;
+        this.reservationMapper = reservationMapper;
+    }
+
+    @GetMapping("/reservation")
+    public List<Reservation> findAllReservations(){
+        List<Reservation> reservationList = reservationService.findAllReservations();
+        log.info("Found reservations");
+        return reservationList;
+    }
+
+    @GetMapping("/property/{reservationId}")
+    public Reservation findReservationById(@PathVariable @NotNull UUID reservationId) {
+        Optional<Reservation> reservationEntity = reservationService.findReservationById(reservationId);
+        if(reservationEntity.isEmpty()) {
+            log.info("item with reservationId {} not found", reservationId);
+            throw new NotFoundException();
+        }
+        final Reservation reservation = reservationEntity.get();
+        log.info("retrieved item by reservationId {}", reservation.getReservationId());
+
+        return reservation;
+    }
+
+    @PostMapping( value = "/reservation",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseStatus(HttpStatus.CREATED)
+    public Reservation addReservation(@RequestBody @Valid ReservationDTO reservationDTO){
+        Reservation reservationMapped = reservationMapper.reservationDTOToReservationEntity(reservationDTO);
+        Reservation reservationCreated = reservationService.createReservation(reservationMapped);
+        log.info("Reservation created");
+        return reservationCreated;
+    }
+
+    @PutMapping( value = "/reservation/{reservationId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Reservation updateReservation(@PathVariable UUID reservationId, @RequestBody ReservationDTO reservationDTO)
+    {
+        log.info("updating reservation");
+        Reservation reservationMapped = reservationMapper.reservationDTOToReservationEntity(reservationDTO);
+        reservationMapped.setReservationId(reservationId);
+        Reservation reservation = reservationService.updateReservation(reservationMapped);
+        log.info("updated reservation");
+        return reservation;
+    }
+    @DeleteMapping(path = "/reservation/{rIdeservation}")
+    public void deleteByReservationId(@PathVariable UUID reservationId){
+        log.info("deleting reservation");
+        reservationService.deleteReservation(reservationId);
+        log.info("deleted reservation");
+    }
+
+}

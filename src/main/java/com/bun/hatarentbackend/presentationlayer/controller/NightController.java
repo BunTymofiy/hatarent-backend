@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RequestMapping()
 @Slf4j
@@ -44,5 +45,25 @@ public class NightController {
         Night nightCreated = nightService.createNight(nightMapped);
         log.info("Night created");
         return nightCreated;
+    }
+
+    @PutMapping(value = "/nights/{nightId}",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Night updateNight(@PathVariable UUID nightId, @RequestBody NightDTO nightDTO){
+        log.info("updating night");
+        Night nightMapped = nightMapper.nightDTOToNightEntity(nightDTO);
+        nightMapped.setNightId(nightId);
+        Night night = nightService.updateNight(nightMapped);
+        log.info("updated night");
+        return night;
+    }
+
+    @DeleteMapping(path = "/nights/{nightId}")
+    public void deleteByNightId(@PathVariable UUID nightId){
+        log.info("deleting night");
+        nightService.deleteNight(nightId);
+        log.info("deleted night");
     }
 }
