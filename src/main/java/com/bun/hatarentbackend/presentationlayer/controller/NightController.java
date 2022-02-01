@@ -6,13 +6,16 @@ import com.bun.hatarentbackend.night.datalayer.Night;
 import com.bun.hatarentbackend.night.datalayer.NightDTO;
 import com.bun.hatarentbackend.property.datalayer.Property;
 import com.bun.hatarentbackend.property.datalayer.PropertyDTO;
+import com.bun.hatarentbackend.utils.exceptions.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequestMapping()
@@ -33,6 +36,19 @@ public class NightController {
         List<Night> nightList = nightService.findAllNights();
         log.info("Found nights");
         return nightList;
+    }
+
+    @GetMapping("/nights/{nightId}")
+    public Night findNightById(@PathVariable  @NotNull UUID nightId) {
+        Optional<Night> nightEntity = nightService.findNightById(nightId);
+        if(nightEntity.isEmpty()) {
+            log.info("item with night id {} not found", nightId);
+            throw new NotFoundException();
+        }
+        final Night night = nightEntity.get();
+        log.info("retrieved item by uuid {}", night.getNightId());
+
+        return night;
     }
 
     @PostMapping( value = "/nights",

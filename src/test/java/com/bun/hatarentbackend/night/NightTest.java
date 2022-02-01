@@ -25,7 +25,7 @@ public class NightTest {
         Night night = new Night(nightId, property, date, 44.0f, "available");
 
         assertEquals(nightId, night.getNightId());
-        assertEquals(property, night.getPropertyId());
+        assertEquals(property, night.getProperty());
         assertEquals(date, night.getDate());
         assertEquals(44.0f, night.getPrice());
         assertEquals("available", night.getState());
@@ -36,7 +36,7 @@ public class NightTest {
     void noArgsConstructorTest()
     {
         Night night = new Night();
-        assertNull(night.getPropertyId());
+        assertNull(night.getProperty());
         assertNull(night.getDate());
         assertNull(night.getPrice());
         assertNull(night.getState());
@@ -51,13 +51,13 @@ public class NightTest {
         Date date = new Date(2021, 11, 17);
 
         night.setNightId(nightId);
-        night.setPropertyId(property);
+        night.setProperty(property);
         night.setDate(date);
         night.setPrice(44.0f);
         night.setState("blocked");
 
         assertEquals(nightId,night.getNightId());
-        assertEquals(property,night.getPropertyId());
+        assertEquals(property,night.getProperty());
         assertEquals(date,night.getDate());
         assertEquals(44.0f,night.getPrice());
         assertEquals("blocked",night.getState());

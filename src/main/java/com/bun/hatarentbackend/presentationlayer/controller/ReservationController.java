@@ -39,7 +39,7 @@ public class ReservationController {
         return reservationList;
     }
 
-    @GetMapping("/property/{reservationId}")
+    @GetMapping("/reservation/{reservationId}")
     public Reservation findReservationById(@PathVariable @NotNull UUID reservationId) {
         Optional<Reservation> reservationEntity = reservationService.findReservationById(reservationId);
         if(reservationEntity.isEmpty()) {
@@ -77,7 +77,7 @@ public class ReservationController {
         log.info("updated reservation");
         return reservation;
     }
-    @DeleteMapping(path = "/reservation/{rIdeservation}")
+    @DeleteMapping(path = "/reservation/{reservationId}")
     public void deleteByReservationId(@PathVariable UUID reservationId){
         log.info("deleting reservation");
         reservationService.deleteReservation(reservationId);

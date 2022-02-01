@@ -29,7 +29,7 @@ public class Night {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @NotNull(message = "Property is required")
     @JoinColumn(name = "uuid")
-    private Property propertyId; // The whole property obj
+    private Property property; // The whole property obj
 
     @Column(name = "date")
     private Date date; // Data type will have to be changed to Date

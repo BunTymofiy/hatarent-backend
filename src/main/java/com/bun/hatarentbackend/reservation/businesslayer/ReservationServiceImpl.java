@@ -4,6 +4,7 @@ import com.bun.hatarentbackend.reservation.datalayer.Reservation;
 import com.bun.hatarentbackend.reservation.datalayer.ReservationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,6 +50,7 @@ public class ReservationServiceImpl implements ReservationService{
     }
 
     @Override
+    @Transactional
     public void deleteReservation(UUID reservationId) {
         log.info("Deleting Reservation");
         final Integer deleted = reservationRepository.deleteByReservationId(reservationId);
