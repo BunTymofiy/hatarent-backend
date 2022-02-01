@@ -4,6 +4,7 @@ import com.bun.hatarentbackend.property.datalayer.Property;
 import com.bun.hatarentbackend.property.datalayer.PropertyRepository;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class PropertyServiceImpl implements PropertyService{
 
     private final PropertyRepository propertyRepository;
-
+    @Autowired
     public PropertyServiceImpl(PropertyRepository propertyRepository) {
         this.propertyRepository = propertyRepository;
     }
@@ -50,6 +51,9 @@ public class PropertyServiceImpl implements PropertyService{
     public Property create(Property propertyEntity) {
         log.info("Creating property");
         Property property = propertyRepository.save(propertyEntity);
+        if (property.getTitle() == null) {
+            log.info("property not created");
+        }
         log.info("Created property");
         return property;
     }
