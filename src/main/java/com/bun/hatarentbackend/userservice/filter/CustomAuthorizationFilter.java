@@ -4,6 +4,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.bun.hatarentbackend.userservice.domain.Role;
+import com.bun.hatarentbackend.userservice.domain.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -33,11 +36,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (request.getServletPath().equals("/login") || request.getServletPath().equals("/token/refresh")) {  //if the request is for login
+        if (request.getServletPath().equals("/login")) {  //if the request is for login
             filterChain.doFilter(request, response);
         } else {
-            String authorizationHeader = request.getHeader(AUTHORIZATION);
-            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+//            String authorizationHeader = request.getHeader(AUTHORIZATION);
+//            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
                 try {
                     Cookie token = WebUtils.getCookie(request, "token");
                     if (token == null || !StringUtils.hasText(token.getValue())) {
@@ -55,7 +58,15 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     {
                         authorities.add(new SimpleGrantedAuthority(role));
                     });
-                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
+
+                    final User principal = User.builder()
+                            .email(username)
+                            .roles(stream(roles).map(r -> Role.builder().name(r).build()).collect(Collectors.toList()))
+                            .build();
+
+                    UsernamePasswordAuthenticationToken authenticationToken =
+                            new UsernamePasswordAuthenticationToken(principal, null, authorities);
+
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                     filterChain.doFilter(request, response);
                 } catch (Exception e) {
@@ -68,9 +79,9 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     response.setContentType(APPLICATION_JSON_VALUE);
                     new ObjectMapper().writeValue(response.getOutputStream(), error);
                 }
-            } else {
-                filterChain.doFilter(request, response);
-            }
+//            } else {
+//                filterChain.doFilter(request, response);
+//            }
         }
     }
 }
