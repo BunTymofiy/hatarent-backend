@@ -52,9 +52,9 @@ public class PropertyServiceTest {
         id = UUID.fromString("2ff4fe29-d8ab-476a-9783-a3ac48bdcfd8");
         id2 = UUID.fromString("f7687281-6bbf-4498-b40d-d1ecbeab6bcb");
         id3 = UUID.fromString("4ad00d0b-c593-441b-a808-5b17e148142d");
-        property = new Property(id, null, new Address(), 5, "description", "title", "email", "contact_person", new ArrayList<>());
-        property2 = new Property(id2, null, new Address(), 5, "description", "title", "email", "contact_person", new ArrayList<>());
-        property3 = new Property(id3, null, new Address(), 5, "description", "title", "email", "contact_person", new ArrayList<>());
+        property = new Property(id, null, new Address(), 5, "description", "title", "email", "contact_person", new ArrayList<>(), 98.0, List.of(3.4,4.1));
+        property2 = new Property(id2, null, new Address(), 5, "description", "title", "email", "contact_person", new ArrayList<>(), 98.0, List.of(3.4,4.1));
+        property3 = new Property(id3, null, new Address(), 5, "description", "title", "email", "contact_person", new ArrayList<>(), 98.0, List.of(3.4,4.1));
         propertyList = new ArrayList<>();
         propertyList.add(property);
         propertyList.add(property2);
