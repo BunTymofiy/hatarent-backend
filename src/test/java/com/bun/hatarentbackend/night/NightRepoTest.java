@@ -44,7 +44,7 @@ public class NightRepoTest {
     {
         Address address = new Address(uuidAddressId, "Street", "apartment","City", "State", "Zip", "Country", "Latitude", "Longitude");
         UUID uuid = UUID.randomUUID();
-        Property property1 = new Property(uuid, uuidHostId, address, 10, "SomeDescription", "Title","Name","Email",List.of("",""));
+        Property property1 = new Property(uuid, uuidHostId, address, 10, "SomeDescription", "Title","Name","Email",List.of("",""), 98.0, List.of(3.4,4.1));
         Date date  = new Date(2021, 11, 16);
         Night night1 = new Night(nightId, property1, date, 45.0f,"blocked");
 
@@ -58,7 +58,7 @@ public class NightRepoTest {
 
         Address address = new Address(uuidAddressId, "Street", "apartment","City", "State", "Zip", "Country", "Latitude", "Longitude");
         UUID uuid = UUID.randomUUID();
-        Property property1 = new Property(uuid, uuidHostId, address, 10, "SomeDescription", "Title","Name","Email",List.of("",""));
+        Property property1 = new Property(uuid, uuidHostId, address, 10, "SomeDescription", "Title","Name","Email",List.of("",""), 98.0, List.of(3.4,4.1));
         Date date  = new Date(2021, 11, 16);
         Night night1 = new Night(nightId, property1, date, 45.0f,"blocked");
 
