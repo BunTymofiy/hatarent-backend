@@ -47,7 +47,7 @@ public class PropertyRepoTest
     {
         Address address = new Address(uuidAddressId, "Street", "apartment","City", "State", "Zip", "Country", "Latitude", "Longitude");
         UUID uuid = UUID.randomUUID();
-        Property property1 = new Property(uuid, uuidHostId, address, 10, "SomeDescription", "Title","Name","Email",List.of("",""));
+        Property property1 = new Property(uuid, uuidHostId, address, 10, "SomeDescription", "Title","Name","Email",List.of("",""), 98.0, List.of(3.4,4.1));
 
         propertyRepository.save(property1);
         assertThat(propertyRepository.count()).isGreaterThan(0);
@@ -73,7 +73,7 @@ public class PropertyRepoTest
 
         UUID uuid = UUID.randomUUID();
 
-        Property property1 = new Property(uuid, uuidHostId, address, 10, "SomeDescription", "Title","Name","Email",List.of("",""));
+        Property property1 = new Property(uuid, uuidHostId, address, 10, "SomeDescription", "Title","Name","Email",List.of("",""), 98.0, List.of(3.4,4.1));
         propertyRepository.delete(property1);
     }
 }

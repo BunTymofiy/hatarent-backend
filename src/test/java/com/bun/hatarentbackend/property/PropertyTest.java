@@ -23,7 +23,7 @@ public class PropertyTest
     void allArgsConstructorTest()
     {
         Address address = new Address();
-        Property property = new Property(uuid, uuidHostId,address, 10, "SomeDescription", "Title","Name","Email", List.of("","") );
+        Property property = new Property(uuid, uuidHostId,address, 10, "SomeDescription", "Title","Name","Email", List.of("","") , 98.0, List.of(3.4,4.1));
 
         assertEquals(uuid,property.getUuid());
         assertEquals(uuidHostId,property.getHostUserUuid());
