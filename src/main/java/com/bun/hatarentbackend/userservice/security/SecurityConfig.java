@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(GET, "/user").authenticated();
 //        http.authorizeRequests().antMatchers(DELETE, "/property/**").permitAll();
 //        http.authorizeRequests().antMatchers(POST, "/property/**").hasAnyAuthority("ROLE_HOST");
-        http.authorizeRequests().antMatchers("/login/**", "/token/refresh/**", "/user/register/**", "/property/**", "/logout", "/nights**").permitAll();
+        http.authorizeRequests().antMatchers("/login/**", "/token/refresh/**", "/user/register/**", "/property/**", "/logout", "/nights/**", "/reservation/**").permitAll();
         http.authorizeRequests().antMatchers(GET, "/property").permitAll();
 
         http.authorizeRequests().anyRequest().authenticated();

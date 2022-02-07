@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -25,13 +26,13 @@ public class Night {
     @Id
     private UUID nightId = UUID.randomUUID();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @NotNull(message = "Property is required")
     @JoinColumn(name = "uuid")
-    private Property propertyId; // The whole property obj
+    private Property property; // The whole property obj
 
     @Column(name = "date")
-    private String date;
+    private Date date; // Data type will have to be changed to Date
 
     @Column(name = "price")
     private Float price;
