@@ -51,4 +51,10 @@ public class Property
     @Column(name = "images")
     private List<String> images;
 
+    @Column(name = "price")
+    private Double price;
+
+    @ElementCollection
+    @Column(name = "rating")
+    private List<Double> rating;
 }
