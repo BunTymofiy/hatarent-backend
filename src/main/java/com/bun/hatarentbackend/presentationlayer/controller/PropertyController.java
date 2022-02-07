@@ -65,7 +65,7 @@ public class PropertyController
     @PutMapping( value = "/property/{uuid}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public Property updateProperty(@PathVariable UUID uuid, @RequestBody PropertyDTO propertyDTO)
     {
         log.info("updating property");
