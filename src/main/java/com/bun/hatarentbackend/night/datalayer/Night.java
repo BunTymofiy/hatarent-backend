@@ -26,7 +26,7 @@ public class Night {
     @Id
     private UUID nightId = UUID.randomUUID();
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @NotNull(message = "Property is required")
     @JoinColumn(name = "uuid")
     private Property property; // The whole property obj

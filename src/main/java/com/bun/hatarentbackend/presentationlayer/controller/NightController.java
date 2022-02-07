@@ -31,7 +31,7 @@ public class NightController {
         this.nightMapper = nightMapper;
     }
 
-    @GetMapping("nights")
+    @GetMapping("/nights")
     public List<Night> getAllNights(){
         List<Night> nightList = nightService.findAllNights();
         log.info("Found nights");

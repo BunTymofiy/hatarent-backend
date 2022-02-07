@@ -67,7 +67,7 @@ public class ReservationController {
     @PutMapping( value = "/reservation/{reservationId}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public Reservation updateReservation(@PathVariable UUID reservationId, @RequestBody ReservationDTO reservationDTO)
     {
         log.info("updating reservation");

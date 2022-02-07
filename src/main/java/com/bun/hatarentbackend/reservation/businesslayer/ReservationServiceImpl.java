@@ -38,7 +38,7 @@ public class ReservationServiceImpl implements ReservationService{
         log.info("Creating Reservation");
         Reservation reservation = reservationRepository.save(reservationEntity);
         log.info("Created Reservation");
-        return null;
+        return reservation;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ReservationServiceImpl implements ReservationService{
         log.info("Creating Reservation");
         Reservation reservation = reservationRepository.save(reservationEntity);
         log.info("Created Reservation");
-        return null;
+        return reservation;
     }
 
     @Override

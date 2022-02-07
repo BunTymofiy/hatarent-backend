@@ -28,7 +28,7 @@ public class Reservation {
     @Id
     private UUID reservationId = UUID.randomUUID();
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @NotNull(message = "Property is required")
     @JoinColumn(name = "uuid")
     private Property property;
