@@ -49,6 +49,12 @@ public class PropertyController
 
         return property;
     }
+    @GetMapping("/property/user/{uuid}")
+    public List<Property> findPropertyByUserId(@PathVariable  @NotNull UUID uuid) {
+        List<Property> propertyList = propertyService.findByHostUuid(uuid);
+        log.info("Found properties");
+        return propertyList;
+    }
 
     @PostMapping( value = "/property",
             consumes = MediaType.APPLICATION_JSON_VALUE,

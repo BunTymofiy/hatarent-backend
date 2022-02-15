@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,9 +28,49 @@ public class ReservationServiceImpl implements ReservationService{
     }
 
     @Override
+    public List<Reservation> findAllReservationsByUserId(UUID userId) {
+        log.info("Retrieving all reservations");
+        return reservationRepository.findByUser(userId);
+    }
+
+    @Override
+    public List<Reservation> findAllReservationsByHostId(UUID hostId) {
+        List<Reservation> reservations = reservationRepository.findAll();
+        List<Reservation> reservationsFiltered = new ArrayList<>();
+        for(Reservation reservation : reservations){
+            if(reservation.getProperty().getHostUserUuid().equals(hostId)){
+                reservationsFiltered.add(reservation);
+            }
+        }
+        return reservationsFiltered;
+    }
+
+    @Override
+    public Reservation acceptReservation(UUID reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(()-> new RuntimeException("Reservation not found"));
+        reservation.setStatus("accepted");
+        return reservationRepository.save(reservation);
+    }
+
+    @Override
+    public Reservation declineReservation(UUID reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(()-> new RuntimeException("Reservation not found"));
+        reservation.setStatus("declined");
+        return reservationRepository.save(reservation);
+    }
+
+    @Override
+    public Reservation payReservation(UUID reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(()-> new RuntimeException("Reservation not found"));
+        reservation.setStatus("paid");
+        return reservationRepository.save(reservation);
+    }
+
+    @Override
     public Optional<Reservation> findReservationById(UUID reservationId) {
         log.info("Retrieving Reservation");
         Optional<Reservation> reservation = reservationRepository.findById(reservationId);
+        log.info("Retrieved Reservation");
         return reservation;
     }
 

@@ -26,4 +26,8 @@ public class PropertyDTO
     private String email;
 
     private List<String> images;
+
+    private Double price;
+
+    private List<Double> rating;
 }

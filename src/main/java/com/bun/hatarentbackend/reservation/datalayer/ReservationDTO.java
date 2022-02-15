@@ -20,4 +20,5 @@ public class ReservationDTO {
     private Date checkOutDate;
     private Integer numberGuests;
     private Float totalPrice;
+    private String status;
 }

@@ -69,4 +69,12 @@ public class PropertyServiceImpl implements PropertyService{
         }
         log.info("deleted property");
     }
+
+    @Override
+    public List<Property> findByHostUuid(UUID hostId) {
+        log.info("Getting property by host id");
+        List<Property> propertyEntity = propertyRepository.findByHostUserUuid(hostId);
+        log.info("Found property by host id");
+        return propertyEntity;
+    }
 }
