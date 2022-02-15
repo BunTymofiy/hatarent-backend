@@ -38,7 +38,18 @@ public class ReservationController {
         log.info("Found reservations");
         return reservationList;
     }
-
+    @GetMapping("/reservation/user/{userId}")
+    public List<Reservation> findAllReservationsByUserId(@PathVariable UUID userId){
+        List<Reservation> reservationList = reservationService.findAllReservationsByUserId(userId);
+        log.info("Found reservations");
+        return reservationList;
+    }
+    @GetMapping(value = "/reservation/host/{reservationId}")
+    public List<Reservation>  findReservationsById(@PathVariable UUID reservationId) {
+        List<Reservation> reservationList = reservationService.findAllReservationsByHostId(reservationId);
+        log.info("Found reservations");
+        return reservationList;
+    }
     @GetMapping("/reservation/{reservationId}")
     public Reservation findReservationById(@PathVariable @NotNull UUID reservationId) {
         Optional<Reservation> reservationEntity = reservationService.findReservationById(reservationId);
@@ -63,7 +74,36 @@ public class ReservationController {
         log.info("Reservation created");
         return reservationCreated;
     }
-
+    @PutMapping(value = "/reservation/accept/{reservationId}",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public Reservation acceptReservation(@PathVariable @NotNull UUID reservationId) {
+        Reservation reservation = reservationService.acceptReservation(reservationId);
+        log.info("Reservation accepted");
+        return reservation;
+    }
+    @PutMapping(value = "/reservation/decline/{reservationId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public Reservation declineReservation(@PathVariable @NotNull UUID reservationId) {
+        Reservation reservation = reservationService.declineReservation(reservationId);
+        log.info("Reservation declined");
+        return reservation;
+    }
+    @PutMapping(value = "/reservation/pay/{reservationId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public Reservation payReservation(@PathVariable @NotNull UUID reservationId) {
+        Reservation reservation = reservationService.payReservation(reservationId);
+        log.info("Reservation paid");
+        return reservation;
+    }
     @PutMapping( value = "/reservation/{reservationId}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

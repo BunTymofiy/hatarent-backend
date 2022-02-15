@@ -13,6 +13,7 @@ public interface PropertyService
     Property update(Property property);
     Property create(Property property);
     void delete(UUID propertyId);
+    List<Property> findByHostUuid(UUID hostId);
 
 
 }

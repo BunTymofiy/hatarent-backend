@@ -4,6 +4,8 @@ import com.bun.hatarentbackend.night.businesslayer.NightMapper;
 import com.bun.hatarentbackend.night.businesslayer.NightService;
 import com.bun.hatarentbackend.night.datalayer.Night;
 import com.bun.hatarentbackend.night.datalayer.NightDTO;
+import com.bun.hatarentbackend.reservation.businesslayer.ReservationService;
+import com.bun.hatarentbackend.reservation.datalayer.Reservation;
 import com.bun.hatarentbackend.utils.exceptions.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,10 +23,12 @@ import java.util.UUID;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class NightController {
+    private final ReservationService reservationService;
     private final NightService nightService;
     private final NightMapper nightMapper;
 
-    public NightController(NightService nightService, NightMapper nightMapper) {
+    public NightController(ReservationService reservationService, NightService nightService, NightMapper nightMapper) {
+        this.reservationService = reservationService;
         this.nightService = nightService;
         this.nightMapper = nightMapper;
     }
@@ -34,6 +38,13 @@ public class NightController {
         List<Night> nightList = nightService.findAllNights();
         log.info("Found nights");
         return nightList;
+    }
+    @GetMapping("/nights/reservation/{reservationId}")
+    public List<Night> getNightsByReservationId(@PathVariable UUID reservationId){
+        Reservation reservation = reservationService.findReservationById(reservationId).orElseThrow(NotFoundException::new);
+        List<Night> nights = nightService.findNightsByReservation(reservation);
+        log.info("Found nights");
+        return nights;
     }
 
     @GetMapping("/nights/{nightId}")
@@ -48,7 +59,16 @@ public class NightController {
 
         return night;
     }
-
+    @PostMapping(value = "/nights/bulk",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public List<Night> createNights(@RequestBody List<NightDTO> nightDTOList){
+        List<Night> nightList = nightMapper.nightDTOListToNightEntityList(nightDTOList);
+        nightService.createNights(nightList);
+        log.info("Created nights");
+        return nightList;
+    }
     @PostMapping( value = "/nights",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -59,6 +79,15 @@ public class NightController {
         Night nightCreated = nightService.createNight(nightMapped);
         log.info("Night created");
         return nightCreated;
+    }
+    @PutMapping(value="nights/bulk/{reservationId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public List<Night> updateNights(@PathVariable UUID reservationId){
+        List<Night> nightList = nightService.updateNights(reservationId);
+        log.info("Updated nights");
+        return nightList;
     }
 
     @PutMapping(value = "/nights/{nightId}",
@@ -79,5 +108,11 @@ public class NightController {
         log.info("deleting night");
         nightService.deleteNight(nightId);
         log.info("deleted night");
+    }
+    @DeleteMapping("/nights/bulk/{reservationId}")
+    public void deleteNightsByReservationId(@PathVariable UUID reservationId){
+        log.info("deleting nights");
+        nightService.deleteNights(reservationId);
+        log.info("deleted nights");
     }
 }

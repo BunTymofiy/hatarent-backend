@@ -35,7 +35,7 @@ public class Reservation {
 
 //    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    @NotNull(message = "Property is required")
-    @Column(name = "host_user_uuid")
+    @Column(name = "user_uuid")
     private UUID user;
 
     @Column(name = "check_in_date")
@@ -49,4 +49,7 @@ public class Reservation {
 
     @Column(name = "total_price")
     private Double totalPrice;
+
+    @Column(name = "status")
+    private String status;
 }
