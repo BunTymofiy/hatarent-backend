@@ -48,5 +48,5 @@ public class Reservation {
     private Integer numberGuests;
 
     @Column(name = "total_price")
-    private Float totalPrice;
+    private Double totalPrice;
 }
