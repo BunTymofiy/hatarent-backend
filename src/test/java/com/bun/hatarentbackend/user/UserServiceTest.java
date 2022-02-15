@@ -38,6 +38,30 @@ public class UserServiceTest {
     @Test
     void contextLoads(){}
 
+    @Test
+    void saveUser(){}
+
+    @Test
+    void updateUser(){}
+
+    @Test
+    void getUserById(){}
+
+    @Test
+    void getAllUsers(){}
+
+    @Test
+    void deleteUserById(){}
+
+    @Test
+    void deleteAllUsers(){}
+
+    @Test
+    void getUserEmail(){}
+
+    @Test
+    void filter(){}
+
     @BeforeEach
     void setUp() {
         uuid1 = UUID.fromString("2ff4fe29-d8ab-476a-9783-a3ac48bdcfd8");
