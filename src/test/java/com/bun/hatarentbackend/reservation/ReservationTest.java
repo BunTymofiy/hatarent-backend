@@ -30,7 +30,7 @@ public class ReservationTest {
         Property property = new Property();
         Date date1 = new Date(2021, 11, 17);
         Date date2 = new Date(2021, 11, 20);
-        Reservation reservation = new Reservation(reservationId, property, uuidGuestId, date1, date2, 2, 65.0f);
+        Reservation reservation = new Reservation(reservationId, property, uuidGuestId, date1, date2, 2, 65.0);
 
 
         assertEquals(reservationId,reservation.getReservationId());
@@ -73,7 +73,7 @@ public class ReservationTest {
         reservation.setCheckInDate(date1);
         reservation.setCheckOutDate(date2);
         reservation.setNumberGuests(2);
-        reservation.setTotalPrice(65.0f);
+        reservation.setTotalPrice(65.0);
 
 
         assertEquals(reservationId,reservation.getReservationId());

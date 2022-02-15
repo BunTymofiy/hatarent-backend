@@ -4,8 +4,6 @@ import com.bun.hatarentbackend.night.businesslayer.NightMapper;
 import com.bun.hatarentbackend.night.businesslayer.NightService;
 import com.bun.hatarentbackend.night.datalayer.Night;
 import com.bun.hatarentbackend.night.datalayer.NightDTO;
-import com.bun.hatarentbackend.property.datalayer.Property;
-import com.bun.hatarentbackend.property.datalayer.PropertyDTO;
 import com.bun.hatarentbackend.utils.exceptions.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
