@@ -48,7 +48,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
-        addSameSiteCookieAttribute(response);
         User user = (User) authentication.getPrincipal();
 
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
@@ -74,16 +73,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         response.addCookie(cookie);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
-    private void addSameSiteCookieAttribute(HttpServletResponse response) {
-        Collection<String> headers = response.getHeaders(HttpHeaders.SET_COOKIE);
-        boolean firstHeader = true;
-        for (String header : headers) { // there can be multiple Set-Cookie attributes
-            if (firstHeader) {
-                response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, "SameSite=Strict"));
-                firstHeader = false;
-                continue;
-            }
-            response.addHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, "SameSite=Strict"));
-        }
-    }
+
+
 }
