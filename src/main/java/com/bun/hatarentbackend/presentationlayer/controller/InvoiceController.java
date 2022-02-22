@@ -20,7 +20,7 @@ import java.util.UUID;
 @RequestMapping()
 @Slf4j
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://hatarent-frontend.vercel.app")
 public class InvoiceController {
     private final InvoiceService invoiceService;
     private final InvoiceMapper invoiceMapper;
