@@ -10,4 +10,6 @@ import java.util.UUID;
 public interface ReservationRepository extends JpaRepository<Reservation, UUID>{
     Integer deleteByReservationId(UUID id);
     List<Reservation> findByUser(UUID uuid);
+    List<Reservation> findByPropertyHostUserUuid(UUID uuid);
+    List<Reservation> findByPropertyUuid(UUID uuid);
 }

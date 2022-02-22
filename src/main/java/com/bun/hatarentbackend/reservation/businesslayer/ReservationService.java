@@ -11,6 +11,7 @@ public interface ReservationService {
     List<Reservation> findAllReservations();
     List<Reservation> findAllReservationsByUserId(UUID userId);
     List<Reservation> findAllReservationsByHostId(UUID hostId);
+    List<Reservation> findAllReservationByPropertyUuid(UUID propertyUuid);
     Reservation acceptReservation(UUID reservationId);
     Reservation declineReservation(UUID reservationId);
     Reservation payReservation(UUID reservationId);

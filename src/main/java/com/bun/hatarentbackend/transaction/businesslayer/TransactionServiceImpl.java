@@ -27,6 +27,18 @@ public class TransactionServiceImpl  implements TransactionService{
     }
 
     @Override
+    public List<Transaction> findAllByUserId(UUID userId) {
+        log.info("Getting all transactions by userId");
+        return transactionRepository.findBySenderId(userId);
+    }
+
+    @Override
+    public List<Transaction> findAllByHostId(UUID userId) {
+        log.info("Getting all transactions by hostId");
+        return transactionRepository.findByReceiverId(userId);
+    }
+
+    @Override
     public Optional<Transaction> findByTransactionId(UUID transactionId) {
         log.info("Getting transaction");
         Optional<Transaction> transactionEntity = transactionRepository.findById(transactionId);

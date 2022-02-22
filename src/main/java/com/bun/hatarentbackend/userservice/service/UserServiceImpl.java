@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -70,6 +71,12 @@ public class UserServiceImpl implements UserService, UserDetailsService
     public User getUser(String email) {
         log.info("getting email {}", email);
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public User getUserByUuid(UUID uuid) {
+        log.info("getting user by uuid {}", uuid);
+        return userRepository.findByUuid(uuid);
     }
 
     @Override
