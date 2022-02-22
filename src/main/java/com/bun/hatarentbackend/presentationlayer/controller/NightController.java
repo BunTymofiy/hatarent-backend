@@ -21,7 +21,7 @@ import java.util.UUID;
 @RequestMapping()
 @Slf4j
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://hatarent-frontend.vercel.app")
 public class NightController {
     private final ReservationService reservationService;
     private final NightService nightService;

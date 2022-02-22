@@ -23,13 +23,13 @@ public class HatarentBackendApplication {
 		SpringApplication.run(HatarentBackendApplication.class, args);
 	}
 
-//	@Bean
-//	CommandLineRunner run(UserService userService) {
-//		return args -> {
-//			userService.saveRole(new Role(null, "ROLE_GUEST"));
-//			userService.saveRole(new Role(null, "ROLE_HOST"));
-//		};
-//	}
+	@Bean
+	CommandLineRunner run(UserService userService) {
+		return args -> {
+			userService.saveRole(new Role(null, "ROLE_GUEST"));
+			userService.saveRole(new Role(null, "ROLE_HOST"));
+		};
+	}
 @Bean
 PasswordEncoder passwordEncoder()
 {
