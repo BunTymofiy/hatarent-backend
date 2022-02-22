@@ -65,21 +65,20 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", access_token);
         response.setContentType(APPLICATION_JSON_VALUE);
-//        ResponseCookie cookie = ResponseCookie.from("token", access_token)
-//                .maxAge(3600)
-//                .domain("https://hatarent-frontend.vercel.app")
-//                .secure(true)
-//                .sameSite("Strict")
-//                .path("/")
-//                .build();
-//        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-        Cookie cookie = new Cookie("token", access_token);
-        cookie.setHttpOnly(true);
-        cookie.setMaxAge(10 * 60 * 1000);
-
-        cookie.setSecure(true);
-        cookie.setPath("/");
-        response.addCookie(cookie);
+        ResponseCookie cookie = ResponseCookie.from("token", access_token)
+                .maxAge(3600)
+                .domain("https://hatarent-frontend.vercel.app")
+                .secure(true)
+                .sameSite("Strict")
+                .path("/")
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+//        Cookie cookie = new Cookie("token", access_token);
+//        cookie.setHttpOnly(true);
+//        cookie.setMaxAge(10 * 60 * 1000);
+//        cookie.setSecure(true);
+//        cookie.setPath("/");
+//        response.addCookie(cookie);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
 }
