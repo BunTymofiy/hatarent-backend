@@ -70,6 +70,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .domain("https://hatarent-frontend.vercel.app")
                 .sameSite("None")
                 .secure(true)
+                .httpOnly(true)
                 .path("/")
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
