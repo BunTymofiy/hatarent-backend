@@ -63,6 +63,8 @@ public class UserController {
         return ResponseEntity.noContent()
                 .header(HttpHeaders.SET_COOKIE, ResponseCookie.from("token", "")
                         .httpOnly(true)
+                        .domain("hatarent-backend.herokuapp.com")
+                        .sameSite("None")
                         .secure(true)
                         .maxAge(0)
                         .path("/")
