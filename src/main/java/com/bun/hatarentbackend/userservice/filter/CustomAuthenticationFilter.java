@@ -67,7 +67,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         response.setContentType(APPLICATION_JSON_VALUE);
         ResponseCookie cookie = ResponseCookie.from("token", access_token)
                 .maxAge(3600)
-                .domain("hatarent-frontend.vercel.app")
+                .domain("hatarent-backend.herokuapp.com")
                 .secure(true)
                 .sameSite("Strict")
                 .path("/")
