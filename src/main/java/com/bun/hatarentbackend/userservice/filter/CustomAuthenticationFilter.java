@@ -73,6 +73,4 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         response.addCookie(cookie);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
-
-
 }
