@@ -69,7 +69,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .maxAge(3600)
                 .domain("https://hatarent-frontend.vercel.app")
                 .secure(true)
-                .sameSite("None")
+                .sameSite("Strict")
                 .httpOnly(true)
                 .path("/")
                 .build();
