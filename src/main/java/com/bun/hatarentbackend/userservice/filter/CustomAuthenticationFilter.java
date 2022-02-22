@@ -65,10 +65,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", access_token);
         response.setContentType(APPLICATION_JSON_VALUE);
-        ResponseCookie cookie = ResponseCookie.from("token", "access_token")
+        ResponseCookie cookie = ResponseCookie.from("token", access_token)
                 .maxAge(3600)
                 .domain("https://hatarent-frontend.vercel.app")
                 .secure(true)
+                .sameSite("None")
                 .httpOnly(true)
                 .path("/")
                 .build();
