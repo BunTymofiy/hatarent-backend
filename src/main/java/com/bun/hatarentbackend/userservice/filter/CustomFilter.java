@@ -14,7 +14,7 @@ public class CustomFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
         HttpServletResponse resp = (HttpServletResponse) response;
-        resp.setHeader("Set-Cookie", "locale=de; HttpOnly; SameSite=strict");
+        resp.setHeader("Set-Cookie", "locale=de; HttpOnly; SameSite=None");
         chain.doFilter(request, response);
     }
 }
