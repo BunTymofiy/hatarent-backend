@@ -35,14 +35,18 @@ public class ReservationServiceImpl implements ReservationService{
 
     @Override
     public List<Reservation> findAllReservationsByHostId(UUID hostId) {
-        List<Reservation> reservations = reservationRepository.findAll();
-        List<Reservation> reservationsFiltered = new ArrayList<>();
-        for(Reservation reservation : reservations){
-            if(reservation.getProperty().getHostUserUuid().equals(hostId)){
-                reservationsFiltered.add(reservation);
-            }
-        }
-        return reservationsFiltered;
+        log.info("Retrieving all reservations");
+        List<Reservation> reservations = reservationRepository.findByPropertyHostUserUuid(hostId);
+        log.info("Retrieved all reservations");
+        return reservations;
+    }
+
+    @Override
+    public List<Reservation> findAllReservationByPropertyUuid(UUID propertyUuid) {
+        log.info("Retrieving all reservations by property");
+        List<Reservation> reservations = reservationRepository.findByPropertyUuid(propertyUuid);
+        log.info("Retrieved all reservations by property");
+        return reservations;
     }
 
     @Override

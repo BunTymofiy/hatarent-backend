@@ -14,6 +14,5 @@ public interface PropertyService
     Property create(Property property);
     void delete(UUID propertyId);
     List<Property> findByHostUuid(UUID hostId);
-
-
+    List<Property> findPropertiesByCityDateAndGuests(String location, String startDate, String endDate, Integer guests);
 }

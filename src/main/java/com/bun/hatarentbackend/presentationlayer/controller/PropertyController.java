@@ -55,7 +55,13 @@ public class PropertyController
         log.info("Found properties");
         return propertyList;
     }
-
+    @GetMapping( value = "/property/{city}/{startDate}/{endDate}/{guests}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Property> findPropertiesByLocationAndDate(@PathVariable String city, @PathVariable String startDate, @PathVariable String endDate, @PathVariable Integer guests){
+        List<Property> propertyList = propertyService.findPropertiesByCityDateAndGuests(city, startDate, endDate, guests);
+        log.info("Found properties");
+        return propertyList;
+    }
     @PostMapping( value = "/property",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -87,4 +93,10 @@ public class PropertyController
         propertyService.delete(uuid);
         log.info("deleted property");
     }
+//    @GetMapping("/property/byCity/{city}")
+//    public List<Property> findPropertyByCity(@PathVariable String city) {
+//        List<Property> propertyList = propertyService.findPropertyByLocation(city);
+//        log.info("Found properties");
+//        return propertyList;
+//    }
 }

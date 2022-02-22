@@ -5,10 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.bun.hatarentbackend.userservice.domain.Role;
-import com.bun.hatarentbackend.userservice.domain.User;
-import com.bun.hatarentbackend.userservice.domain.UserMapper;
-import com.bun.hatarentbackend.userservice.domain.UserPasswordLessDTO;
+import com.bun.hatarentbackend.userservice.domain.*;
 import com.bun.hatarentbackend.userservice.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
@@ -28,10 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -59,7 +53,11 @@ public class UserController {
         UserPasswordLessDTO userPasswordLessDTO = userMapper.toPasswordLessDTO(foundUser);
         return ResponseEntity.ok().body(userPasswordLessDTO);
     }
-
+    @GetMapping("/user/info/{uuid}")
+    public ResponseEntity<UserNameAndEmailDTO> getUserNameAndEmail(@PathVariable UUID uuid) {
+        User user = userService.getUserByUuid(uuid);
+        return ResponseEntity.ok().body(userMapper.toNameAndEmailDTO(user));
+    }
     @RequestMapping(method = RequestMethod.HEAD , value = "/logout")
     public ResponseEntity<Void> logout()   {
         return ResponseEntity.noContent()

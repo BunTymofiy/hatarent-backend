@@ -11,4 +11,5 @@ public interface PropertyRepository extends JpaRepository<Property, UUID>
 {
     Integer deleteByUuid(UUID id);
     List<Property> findByHostUserUuid(UUID id);
+    List<Property> findByAddressCity(String city);
 }

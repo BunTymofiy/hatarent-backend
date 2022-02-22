@@ -7,4 +7,5 @@ import org.mapstruct.Mapping;
 public interface UserMapper {
 
     UserPasswordLessDTO toPasswordLessDTO(User user);
+    UserNameAndEmailDTO toNameAndEmailDTO(User user);
 }
