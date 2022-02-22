@@ -2,6 +2,7 @@ package com.bun.hatarentbackend.userservice.security;
 
 import com.bun.hatarentbackend.userservice.filter.CustomAuthenticationFilter;
 import com.bun.hatarentbackend.userservice.filter.CustomAuthorizationFilter;
+import com.bun.hatarentbackend.userservice.filter.CustomFilter;
 import com.bun.hatarentbackend.userservice.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -57,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(new CustomFilter(), BasicAuthenticationFilter.class);
 //        http.addFilterBefore(new CORSFilter(), ChannelProcessingFilter.class);
 
     }
