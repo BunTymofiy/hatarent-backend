@@ -66,9 +66,9 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         response.setContentType(APPLICATION_JSON_VALUE);
         ResponseCookie cookie = ResponseCookie.from("token", access_token)
                 .maxAge(3600)
-//                .domain("hatarent-backend.herokuapp.com")
+                .domain("hatarent-backend.herokuapp.com")
                 .secure(true)
-//                .sameSite("None")
+                .sameSite("None")
                 .path("/")
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
