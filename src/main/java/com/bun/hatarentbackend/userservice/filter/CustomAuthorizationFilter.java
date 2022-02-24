@@ -39,8 +39,6 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
         if (request.getServletPath().equals("/login")) {  //if the request is for login
             filterChain.doFilter(request, response);
         } else {
-//            String authorizationHeader = request.getHeader(AUTHORIZATION);
-//            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
                 try {
                     Cookie token = WebUtils.getCookie(request, "token");
                     if (token == null || !StringUtils.hasText(token.getValue())) {
@@ -48,7 +46,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                         return;
                     }
 
-                    Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
+                    Algorithm algorithm = Algorithm.HMAC256("bcc4d70a181f4b7a9b183d2ad1583654".getBytes());
                     JWTVerifier verifier = JWT.require(algorithm).build();
                     DecodedJWT decodedJWT = verifier.verify(token.getValue());
                     String username = decodedJWT.getSubject();

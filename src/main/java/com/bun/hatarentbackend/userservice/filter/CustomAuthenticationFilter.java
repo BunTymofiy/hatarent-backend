@@ -51,8 +51,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         User user = (User) authentication.getPrincipal();
 
-        Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
-
+        Algorithm algorithm = Algorithm.HMAC256("bcc4d70a181f4b7a9b183d2ad1583654".getBytes());
         String access_token = JWT.create()
                 .withSubject(user.getEmail())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 15 * 60 * 1000))
@@ -67,9 +66,9 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         response.setContentType(APPLICATION_JSON_VALUE);
         ResponseCookie cookie = ResponseCookie.from("token", access_token)
                 .maxAge(3600)
-                .domain("hatarent-backend.herokuapp.com")
+//                .domain("hatarent-backend.herokuapp.com")
                 .secure(true)
-                .sameSite("None")
+//                .sameSite("None")
                 .path("/")
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
